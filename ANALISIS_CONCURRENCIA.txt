@@ -1,0 +1,20 @@
+* Qué condiciones de carrera se podrían presentar?
+
+    - Cuando se pretenda realizar un POST, ya que cunado se hace un POST se están agregando nuevos blueprints, y puede que
+      exista otra petición GET que esté consultando esta Lista de blueprints por lo cual tendría información no veridica.
+
+    - Al momento de realizar una petición PUT, ya que se está modificando un blueprint específico, y puede que
+      exista otra petición GET que esté consultando esta Lista de blueprints por lo cual tendría información no verídica.
+
+    - Cuando se este realizando un POST debido que puede existir otra peticion al tiempo y se va a tener que modificar
+      el mismo recurso, o el recurso ya este en uso y la operacion no se pueda realziar.
+
+* Cuales son las respectivas regiones críticas?
+
+    - Los métodos POST, GET y PUT que accedan al recurso de blueprintsServices, debido a que esta clase será la responsable
+      de atender las solicitudes que cada uno de estos métodos realicen.
+
+ * Estrategias y Solución Aplicada.
+
+    - Se decide utilizar un Map que sea thread-safe y para esto se utiliza la clase ConcurrentHashMap, la cual será la
+      encargada de consultar, escribir y guardar los blueprints.
